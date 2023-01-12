@@ -22,10 +22,21 @@ class TasksScreen extends StatelessWidget {
       ]),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
+        children: [
           Center(
             child: Chip(label: Text('Tasks')),
           ),
+          Expanded(
+            child: ListView.builder(
+                itemCount: _tasksList.length,
+                itemBuilder: (context, index) {
+                  var task = _tasksList[index];
+                  return ListTile(
+                    title: Text(task.title),
+                    trailing: Checkbox(value: task.isDone, onChanged: (value) {}),
+                  ); 
+                }),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
