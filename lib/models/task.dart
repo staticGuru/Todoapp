@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class task extends Equatable{
+class Task extends Equatable{
   final String title;
   bool? isDone;
   bool? isDeleted;
-  task({
+  Task({
     required this.title,
     this.isDone,
     this.isDeleted,
@@ -16,12 +16,12 @@ class task extends Equatable{
     isDeleted = isDeleted ?? false;
   }
 
-  task copyWith({
+  Task copyWith({
     String? title,
     bool? isDone,
     bool? isDeleted,
   }) {
-    return task(
+    return Task(
       title: title ?? this.title,
       isDone: isDone ?? this.isDone,
       isDeleted: isDeleted ?? this.isDeleted,
@@ -36,8 +36,8 @@ class task extends Equatable{
     };
   }
 
-  factory task.fromMap(Map<String, dynamic> map) {
-    return task(
+  factory Task.fromMap(Map<String, dynamic> map) {
+    return Task(
       title: map['title'] as String,
       isDone: map['isDone'] != null ? map['isDone'] as bool : null,
       isDeleted: map['isDeleted'] != null ? map['isDeleted'] as bool : null,
@@ -46,7 +46,7 @@ class task extends Equatable{
 
   String toJson() => json.encode(toMap());
 
-  factory task.fromJson(String source) => task.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Task.fromJson(String source) => Task.fromMap(json.decode(source) as Map<String, dynamic>);
   
   @override
   // TODO: implement props
