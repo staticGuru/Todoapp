@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/task.dart';
+import '../widgets/tasks_list.dart';
 
 class TasksScreen extends StatelessWidget {
   TasksScreen({Key? key}) : super(key: key);
@@ -26,17 +27,7 @@ class TasksScreen extends StatelessWidget {
           Center(
             child: Chip(label: Text('Tasks')),
           ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: _tasksList.length,
-                itemBuilder: (context, index) {
-                  var task = _tasksList[index];
-                  return ListTile(
-                    title: Text(task.title),
-                    trailing: Checkbox(value: task.isDone, onChanged: (value) {}),
-                  ); 
-                }),
-          )
+          TasksList(tasksList: _tasksList)
         ],
       ),
       floatingActionButton: FloatingActionButton(
