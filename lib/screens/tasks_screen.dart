@@ -13,18 +13,7 @@ class TasksScreen extends StatelessWidget {
     showModalBottomSheet(
         context: context,
         builder: (context) => SingleChildScrollView(
-              child: Container(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: Column(children: [
-                    const Text("Add Tasks", style: TextStyle(fontSize: 24)),
-                    const SizedBox(height: 10),
-                    TextField(
-                      controller: taskTitleController,
-                      decoration: const InputDecoration(
-                          label: Text('Title'), border: OutlineInputBorder()),
-                    )
-                  ])),
+              child: AddTasksScreen(taskTitleController: taskTitleController),
             ));
   }
 
@@ -57,5 +46,36 @@ class TasksScreen extends StatelessWidget {
         );
       },
     );
+  }
+}
+
+class AddTasksScreen extends StatelessWidget {
+  const AddTasksScreen({
+    Key? key,
+    required this.taskTitleController,
+  }) : super(key: key);
+
+  final TextEditingController taskTitleController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(children: [
+            const Text("Add Tasks", style: TextStyle(fontSize: 24)),
+            const SizedBox(height: 10),
+            TextField(
+              autofocus: true,
+              controller: taskTitleController,
+              decoration: const InputDecoration(
+                  label: Text('Title'), border: OutlineInputBorder()),
+            ),
+            TextButton(onPressed: () {}, child: const Text("Cancel")),
+            ElevatedButton(onPressed: () {}, child: const Text("Add"))
+          ]),
+        ));
   }
 }
