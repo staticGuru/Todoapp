@@ -1,17 +1,17 @@
-
 import 'package:flutter/material.dart';
 
 import '../blocs/bloc_exports.dart';
 import '../models/task.dart';
+import 'dart:math';
 
 class AddTasksScreen extends StatelessWidget {
-   const AddTasksScreen({
+  const AddTasksScreen({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-      TextEditingController taskTitleController = TextEditingController();
+    TextEditingController taskTitleController = TextEditingController();
 
     return Container(
         padding:
@@ -35,7 +35,9 @@ class AddTasksScreen extends StatelessWidget {
                     child: const Text("Cancel")),
                 ElevatedButton(
                     onPressed: () {
-                      var task = Task(title: taskTitleController.text);
+                      Random random = Random();
+                      var id = (random.nextDouble() * 50).toString();
+                      var task = Task(title: taskTitleController.text, id: id);
                       context.read<TasksBloc>().add(AddTask(task: task));
                       Navigator.pop(context);
                     },
