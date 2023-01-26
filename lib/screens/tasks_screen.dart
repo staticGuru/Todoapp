@@ -5,15 +5,21 @@ import 'package:flutter/material.dart';
 import '../blocs/bloc_exports.dart';
 import '../models/task.dart';
 import '../widgets/tasks_list.dart';
+import 'add_task_screen.dart';
 
-class TasksScreen extends StatelessWidget {
-  TasksScreen({Key? key}) : super(key: key);
-  TextEditingController taskTitleController = TextEditingController();
+class TasksScreen extends StatefulWidget {
+  const TasksScreen({Key? key}) : super(key: key);
+
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
   void _addTasks(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        builder: (context) => SingleChildScrollView(
-              child: AddTasksScreen(taskTitleController: taskTitleController),
+        builder: (context) =>  const SingleChildScrollView(
+              child: AddTasksScreen(),
             ));
   }
 
@@ -25,15 +31,16 @@ class TasksScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(title: const Text('Task App'), actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () => _addTasks(context),
               icon: const Icon(Icons.add),
             )
           ]),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // ignore: prefer_const_constructors
               Center(
-                child: Chip(label: Text('Tasks')),
+                child: const Chip(label: Text('Tasks')),
               ),
               TasksList(tasksList: _tasksList)
             ],
@@ -46,49 +53,5 @@ class TasksScreen extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class AddTasksScreen extends StatelessWidget {
-  const AddTasksScreen({
-    Key? key,
-    required this.taskTitleController,
-  }) : super(key: key);
-
-  final TextEditingController taskTitleController;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(children: [
-            const Text("Add Tasks", style: TextStyle(fontSize: 24)),
-            const SizedBox(height: 10),
-            TextField(
-              autofocus: true,
-              controller: taskTitleController,
-              decoration: const InputDecoration(
-                  label: Text('Title'), border: OutlineInputBorder()),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text("Cancel")),
-                ElevatedButton(
-                    onPressed: () {
-                      var task = Task(title: taskTitleController.text);
-                      context.read<TasksBloc>().add(AddTask(task: task));
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Add"))
-              ],
-            ),
-          ]),
-        ));
   }
 }

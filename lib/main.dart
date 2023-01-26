@@ -18,13 +18,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          TasksBloc()..add(AddTask(task: Task(title: "task1"))),
+          TasksBloc(),
+          // ..add(AddTask(task: Task(title: "task1")))
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: TasksScreen(),
+        home: const TasksScreen(),
       ),
     );
   }

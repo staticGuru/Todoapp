@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore: must_be_immutable
 class Task extends Equatable{
   final String title;
   bool? isDone;
