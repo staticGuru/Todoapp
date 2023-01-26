@@ -6,10 +6,11 @@ import '../blocs/bloc_exports.dart';
 import '../models/task.dart';
 import '../widgets/tasks_list.dart';
 import 'add_task_screen.dart';
+import 'my_drawer.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({Key? key}) : super(key: key);
-
+  static const id = "tasks_screen";
   @override
   State<TasksScreen> createState() => _TasksScreenState();
 }
@@ -18,7 +19,7 @@ class _TasksScreenState extends State<TasksScreen> {
   void _addTasks(BuildContext context) {
     showModalBottomSheet(
         context: context,
-        builder: (context) =>  const SingleChildScrollView(
+        builder: (context) => const SingleChildScrollView(
               child: AddTasksScreen(),
             ));
   }
@@ -35,12 +36,13 @@ class _TasksScreenState extends State<TasksScreen> {
               icon: const Icon(Icons.add),
             )
           ]),
+          drawer: MyDrawer(),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // ignore: prefer_const_constructors
               Center(
-                child: const Chip(label: Text('Tasks')),
+                child: Chip(label: Text('${state.allTasks.length} Tasks')),
               ),
               TasksList(tasksList: _tasksList)
             ],
