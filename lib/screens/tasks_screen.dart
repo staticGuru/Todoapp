@@ -73,7 +73,7 @@ class AddTasksScreen extends StatelessWidget {
               decoration: const InputDecoration(
                   label: Text('Title'), border: OutlineInputBorder()),
             ),
-            TextButton(onPressed: () {}, child: const Text("Cancel")),
+            TextButton(onPressed: ()=>Navigator.pop(context), child: const Text("Cancel")),
             ElevatedButton(onPressed: () {}, child: const Text("Add"))
           ]),
         ));
